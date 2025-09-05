@@ -341,6 +341,8 @@ e.g. `:vim[grep] /foo/ **/*`
 
 ## Fun stuff
 
+### Execute normal commands from command mode
+
 `norm` - Execute normal commands from command mode.
 
 E.g. do `:norm _isrc={f,i}` on the line 1-3 below (the `` is `CTRL-V` followed by `Esc` to put in an actual `Esc` character):
@@ -367,4 +369,20 @@ amet,
 consectetur,
 adipiscing,
 elit,
+```
+
+## Use ripgrep to grep
+
+Use `rg` as built in `:grep` command:
+
+```
+:set grepprg=rg\ --vimgrep
+
+```
+
+Search for `my-search-string` using ripgrep's arguments in the current folder but exclude all folders containing `test` and send the result to the quickfix list:
+
+```
+:grep -F -n -g '**/*' -g '!**/test/**' "my-search-string" . | cw
+
 ```
