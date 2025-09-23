@@ -325,6 +325,8 @@ e.g. `:vim[grep] /foo/ **/*`
 
 ## Diff
 
+`$nvim -d {file1} {file2} {file3}` - open Neovim in diff-mode
+
 `]c` - jump to start of next change
 
 `[c` - jump to start of previous change
@@ -333,11 +335,15 @@ e.g. `:vim[grep] /foo/ **/*`
 
 `dp` or `:diffpu[t]` - put difference (to other buffer)
 
-`:diffthis` - make current window part of diff
+`:difft[his]` - make current window part of diff
+
+`:diffs[plit] {filename}` - open a new window on the file `{filename`.
 
 `:dif[fupdate]` - update differences
 
 `:diffo[ff]` - switch off diff mode for current window
+
+`windo difft/diffo` - apply `difft`/`diffo` to all windows.
 
 ## Fun stuff
 
