@@ -180,7 +180,17 @@ E.g. `:g!/{pattern}/d` - delete all lines not containing pattern
 
 #### Insert mode completion
 
+`CTRL-X CTRL-L` - Whole lines.
+
+`CTRL-X CTRL-N` - Keywords in the current file.
+
+`CTRL-X CTRL-K` - Keywords in 'dictionary'.
+
+`CTRL-X CTRL-T` - Keywords in 'thesaurus'.
+
 `CTRL-X CTRL-F` - File name completion.
+
+`CTRL-X CTRL-O` - Omni completion (LSP too)
 
 ## Macros
 
