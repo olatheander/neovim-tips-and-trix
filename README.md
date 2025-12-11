@@ -104,9 +104,21 @@ E.g. `:g!/{pattern}/d` - delete all lines not containing pattern
 
 . - repeat last command
 
-### Misc
+### Command-line window
+
+From Normal mode use:
 
 `q:` - command line history.
+
+`q/` - search history.
+
+`q?` - backward search history.
+
+`CTRL-C` - exit command-line window.
+
+When in command-line mode, use:
+
+`CTRL-F` - open command-line window.
 
 ## Visual mode
 
