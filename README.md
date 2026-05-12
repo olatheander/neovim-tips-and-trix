@@ -345,6 +345,41 @@ e.g. `:vim[grep] /foo/ **/*`
 
 `:ccl[ose]` - close the quickfix window
 
+### Search and replace in multiple files
+
+1. Populate the _quickfix_ list with all matches — use any grep tool:
+
+   ```
+   :grep! "oldterm" **/*.lua
+   ```
+
+   Or with FzfLua, send results to quickfix via `<Ctrl-q>`.
+
+1. Run substitute across all quickfix entries:
+
+   ```
+   :cdo s/oldterm/newterm/g | update
+   ```
+
+   - `:cdo` runs the command on each line in the quickfix list
+   - `:cfdo` runs it on each file (more efficient if many matches per file)
+   - `| update` saves each file after substituting
+
+#### With your FzfLua setup
+
+Since `<Ctrl-q>` sends all grep results to quickfix, the full flow is:
+
+1. `<leader>sg` → type search term → `<Ctrl-q>` to send all to quickfix
+1. `:cfdo s/oldterm/newterm/g | update`
+
+#### Confirmation mode
+
+Add `c` flag to confirm each substitution interactively:
+
+```
+:cfdo s/oldterm/newterm/gc | update
+```
+
 ## Diff
 
 `$nvim -d {file1} {file2} {file3}` - open Neovim in diff-mode
