@@ -402,6 +402,89 @@ Add `c` flag to confirm each substitution interactively:
 
 `windo difft/diffo` - apply `difft`/`diffo` to all windows.
 
+## Use vimdiff as Git merge tool
+
+### Configuration
+
+Configure vimdiff as the merge tool for the current repository:
+
+```
+git config merge.tool vimdiff
+```
+
+Set the conflict style. `zdiff3` is recommended (requires Git 2.35+):
+
+```
+git config merge.conflictstyle zdiff3
+```
+
+Disable the `.orig` backup files that `git mergetool` creates before opening the merge tool:
+
+```
+git config mergetool.keepBackup false
+```
+
+**Conflict styles:**
+
+- **`merge`** (default) — shows only LOCAL and REMOTE with standard conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`). No context on what changed relative to the original.
+- **`diff3`** — adds a BASE section between the markers, showing the common ancestor. Makes it easier to understand what each side changed and why, at the cost of slightly more verbose conflict blocks.
+- **`zdiff3`** (recommended, Git 2.35+) — like `diff3`, but trims lines that are identical on both sides from the conflict block. Only the truly ambiguous lines are wrapped in markers; unambiguous changes are auto-resolved. Produces smaller, cleaner conflict regions. Fall back to `diff3` on older Git.
+
+### The merge layout
+
+Invoke the merge tool after a conflicting merge:
+
+```
+git mergetool
+```
+
+Vimdiff opens a 4-pane layout:
+
+```
+╔═══════════╦══════════╦════════════╗
+║   LOCAL   ║   BASE   ║   REMOTE   ║
+╠═══════════╩══════════╩════════════╣
+║              MERGED               ║
+╚═══════════════════════════════════╝
+```
+
+- **LOCAL** (top-left) — the current branch (HEAD)
+- **BASE** (top-center) — the common ancestor of both branches
+- **REMOTE** (top-right) — the incoming branch being merged
+- **MERGED** (bottom) — the file being edited; this is what gets saved
+
+Work in the **MERGED** pane. Use LOCAL, BASE, and REMOTE as read-only reference.
+
+If the coloring is bad `:colorscheme unokai` works pretty well.
+
+### Resolving conflicts
+
+Navigate between conflicts in the MERGED pane:
+
+`]c` - jump to the next conflict
+
+`[c` - jump to the previous conflict
+
+Pull a resolution from one of the reference panes into MERGED:
+
+`:diffget (LO)CAL/1` - accept the LOCAL version of the conflict
+
+`:diffget BASE/2` - accept the BASE version (revert the conflict)
+
+`:diffget (RE)MOTE/3` - accept the REMOTE version of the conflict
+
+Buffer names can be tab-completed — e.g. type `:diffget lo` and press `<Tab>` to expand to `LOCAL`.
+
+`:dif[fupdate]` - refresh diff highlighting if it gets out of sync
+
+You can also edit the MERGED pane directly to craft a resolution that combines changes from both sides.
+
+### Finishing the merge
+
+`:wqa` - write MERGED and close all windows; Git marks the conflict as resolved
+
+`:cq` - quit all windows without saving; leaves conflict markers in place (merge not resolved)
+
 ## Fun stuff
 
 ### Execute normal commands from command mode
