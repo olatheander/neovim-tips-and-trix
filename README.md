@@ -380,6 +380,12 @@ Add `c` flag to confirm each substitution interactively:
 :cfdo s/oldterm/newterm/gc | update
 ```
 
+## Autocomplete
+
+`CTRL-N/CTRL-P` - navigate suggestions
+
+`CTRL-Y` - pick suggestion
+
 ## Diff
 
 `$nvim -d {file1} {file2} {file3}` - open Neovim in diff-mode
