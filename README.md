@@ -86,13 +86,21 @@ E.g. `:g!/{pattern}/d` - delete all lines not containing pattern
 
 ### Editing
 
+`r` - replace a single character.
+
+`R` - replace more than one character, until ESC is pressed.
+
+`J` - join line below to the current one with one space in between
+
+`gJ` - join line below to the current one without space in between
+
+`cc` - change (replace) entire line
+
 `c$` or `C` - change (replace) to the end of the line
 
 `d$` or `D` - delete (cut) to the end of the line
 
-`r` - replace a single character.
-
-`R` - replace more than one character, until ESC is pressed.
+`s` - delete character and substitute text (same as `cl`)
 
 `cc`/`S` - change (replace) entire line
 
